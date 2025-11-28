@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
           InkWell(
             onTap: (){
               Utils.toastMessage('fdsfss');
+              Utils.snackBar('anything you want', context);
               Utils.flushBarErrorMessage('anything you want', context);
             },
               child: Center(child: Text('click'))),
