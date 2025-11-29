@@ -1,0 +1,28 @@
+import 'package:mvvm/data/network/base_api_service.dart';
+import 'package:mvvm/data/network/network_api_service.dart';
+import 'package:mvvm/res/app_url.dart';
+
+class AuthRepository {
+
+
+  BaseApiServices _apiServices = NetworkApiServices();
+
+  Future<dynamic> loginApi(String data)async{
+    try{
+      dynamic response = await _apiServices.getPostApiResponse(AppUrl.loginEndPoint, data);
+        return response;
+    }catch(e){
+        throw e;
+    }
+  }
+
+  Future<dynamic> registerApi(String data)async{
+    try{
+      dynamic response = await _apiServices.getPostApiResponse(AppUrl.registerEndPoint, data);
+      return response;
+    }catch(e){
+      throw e;
+    }
+  }
+
+}
