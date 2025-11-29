@@ -5,6 +5,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 
 class Utils{
+
+  static void focusNode(
+      BuildContext context,
+      FocusNode current,
+      FocusNode nextFocus){
+    current.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   static toastMessage(String message){
     Fluttertoast.showToast(
         msg: message,
@@ -13,7 +22,6 @@ class Utils{
 
     );
   }
-
 
   static void flushBarErrorMessage(String message, BuildContext context){
     showFlushbar(context: context,
@@ -26,7 +34,6 @@ class Utils{
     )..show(context)
     );
   }
-
 
   static snackBar(String message, BuildContext context){
     return ScaffoldMessenger.of(context).showSnackBar(
