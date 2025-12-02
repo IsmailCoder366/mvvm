@@ -11,7 +11,6 @@ class AuthViewModel extends ChangeNotifier{
   Future<void> loginApi(dynamic data, BuildContext context)async{
 
     _authRepo.loginApi(data).then((value){
-        print('api hit');
     }).onError((error, stackTrace){
 Utils.flushBarErrorMessage(error.toString(), context);
 
