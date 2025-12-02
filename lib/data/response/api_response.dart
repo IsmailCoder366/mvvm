@@ -11,7 +11,7 @@ class ApiResponse<T>{
   ApiResponse.completed() : status = Status.COMPLETED;
   ApiResponse.error() : status = Status.ERROR;
 
-  String toString(){
+  String toStrings(){
     return 'Status : $status \n Message : $message \n Data : $data';
   }
 }

@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/res/components/roundButton.dart';
-import 'package:mvvm/utils/routes/routes_name.dart';
-import 'package:mvvm/utils/utils.dart';
-import 'package:mvvm/view/signup.dart';
-import 'package:mvvm/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import '../res/components/roundButton.dart';
+import '../utils/utils.dart';
+import '../view_model/auth_view_model.dart';
+
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupState extends State<Signup> {
 
   ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(false);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
-  bool loading = false;
+  bool setsignUpLoading = false;
 
 
   void dispose(){
@@ -30,9 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
     emailFocus.dispose();
     passwordFocus.dispose();
   }
-
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -40,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('signup'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -70,14 +66,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscuringCharacter: '*',
                     focusNode: passwordFocus,
                     decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
-                        suffixIcon: InkWell(
-                          onTap: (){
-                           _obsecurePassword.value = !_obsecurePassword.value;
-                          },
-                          child: value ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined),
-                        ),
+                      hintText: 'Password',
+                      prefixIcon: Icon(Icons.lock),
+                      suffixIcon: InkWell(
+                        onTap: (){
+                          _obsecurePassword.value = !_obsecurePassword.value;
+                        },
+                        child: value ? Icon(Icons.visibility_off_outlined) : Icon(Icons.visibility_outlined),
+                      ),
                     ),
 
                   );
@@ -85,34 +81,34 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: height * 0.1),
             Roundbutton(
-              loading : _authView.loading,
-              title: 'login',
+loading: _authView.signUploading,
+              title: 'sign up',
               ontap: (){
-                  if(_emailController.text.isEmpty){
-                    Utils.flushBarErrorMessage('enter email', context);
-                  }else if(_passwordController.text.isEmpty){
-                    Utils.flushBarErrorMessage('enter password', context);
-                  }else if(_passwordController.text.length < 6){
-                    Utils.flushBarErrorMessage('password should be greatest than 6 digits', context);
-                  }else {
-                    Map data = {
-                      'email': _emailController.text.toString(),
-                      'password': _passwordController.text.toString(),
-                    };
-                    _authView.loginApi(data, context);
-                    print('api hit');
-                  }
-            },),
+                if(_emailController.text.isEmpty){
+                  Utils.flushBarErrorMessage('enter email', context);
+                }else if(_passwordController.text.isEmpty){
+                  Utils.flushBarErrorMessage('enter password', context);
+                }else if(_passwordController.text.length < 6){
+                  Utils.flushBarErrorMessage('password should be greatest than 6 digits', context);
+                }else {
+                  Map data = {
+                    'email': _emailController.text.toString(),
+                    'password': _passwordController.text.toString(),
+                  };
+                  _authView.signUpApi(data, context);
+                  print('api hit');
+                }
+              },),
             SizedBox(height: height * 0.1),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?"),
+                Text("Already have an account?"),
                 InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, RoutesName.signUp);
+
                     },
-                    child: Text("Sign up"))
+                    child: Text("signin"))
               ],
             )
 

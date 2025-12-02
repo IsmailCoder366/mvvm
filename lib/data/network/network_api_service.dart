@@ -26,9 +26,7 @@ class NetworkApiServices extends BaseApiServices{
     dynamic responseJson;
     try{
 
-      http.Response response = await http.post(Uri.parse(url),
-      body: data
-      ).timeout(Duration(seconds: 10));
+      http.Response response = await http.post(Uri.parse(url),body: data).timeout(Duration(seconds: 10));
       responseJson = returnResponse(response);
     }on SocketException{
       throw FetchDataException('No Internet Connection');
@@ -42,12 +40,12 @@ class NetworkApiServices extends BaseApiServices{
       case 200 :
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
-      case 400 :
+      case 400 || 401 :
         return BadRequestException(response.body.toString());
       case 404 :
         return UnathorizedException(response.body.toString());
         default:
-          throw FetchDataException('Error occured while communicating with server'+'with status code' + response.statusCode.toString());
+          throw FetchDataException(response.statusCode.toString());
     }
   }
 
